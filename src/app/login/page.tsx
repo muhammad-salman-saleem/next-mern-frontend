@@ -47,6 +47,7 @@ export default function Login() {
         setError("Invalid email or password");
       }
     } catch (err) {
+      console.log("object not found", err);
       setError("Something went wrong. Please try again.");
     }
   };
