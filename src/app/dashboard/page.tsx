@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import Image from "next/image";
 
 export default function Dashboard() {
   const [carModel, setCarModel] = useState<string>("");
@@ -39,7 +40,7 @@ export default function Dashboard() {
   const handlePictureChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     if (pictures.length + files.length > maxPictures) {
-      toast.error(`You can only upload up to ${maxPictures} pictures.`)
+      toast.error(`You can only upload up to ${maxPictures} pictures.`);
       return;
     }
 
@@ -52,7 +53,7 @@ export default function Dashboard() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const formData = new FormData();
     formData.append("carModel", carModel);
     formData.append("price", price);
@@ -78,7 +79,7 @@ export default function Dashboard() {
       );
 
       if (res.ok) {
-        toast.success('Vehicle information submitted successfully')
+        toast.success("Vehicle information submitted successfully");
         router.push("/dashboard");
         setCarModel("");
         setPrice("");
@@ -87,15 +88,15 @@ export default function Dashboard() {
         setMaxPictures(1);
         setPreviewUrls([]);
         setPictures([]);
-        setLoading(false)
+        setLoading(false);
       } else {
-        toast.error('All fields are required')
-        setLoading(false)
+        toast.error("All fields are required");
+        setLoading(false);
       }
     } catch (error) {
       console.error(error);
-      toast.error('Error submitting the form.')
-      setLoading(false)
+      toast.error("Error submitting the form.");
+      setLoading(false);
     }
   };
 
@@ -108,8 +109,16 @@ export default function Dashboard() {
       <Toaster position="top-center" reverseOrder={false} />
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sx={{display:"flex",alignItems:"center",flexWrap:{xs:"wrap",sm:"nowrap"}}}>
-              <Typography sx={{minWidth:"150px"}}>Car Model</Typography>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexWrap: { xs: "wrap", sm: "nowrap" },
+            }}
+          >
+            <Typography sx={{ minWidth: "150px" }}>Car Model</Typography>
             <TextField
               fullWidth
               value={carModel}
@@ -118,8 +127,16 @@ export default function Dashboard() {
               inputProps={{ minLength: 3 }}
             />
           </Grid>
-          <Grid item xs={12} sx={{display:"flex",alignItems:"center",flexWrap:{xs:"wrap",sm:"nowrap"}}}>
-          <Typography sx={{minWidth:"150px"}}>Price</Typography>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexWrap: { xs: "wrap", sm: "nowrap" },
+            }}
+          >
+            <Typography sx={{ minWidth: "150px" }}>Price</Typography>
             <TextField
               fullWidth
               type="number"
@@ -128,8 +145,16 @@ export default function Dashboard() {
               required
             />
           </Grid>
-          <Grid item xs={12} sx={{display:"flex",alignItems:"center",flexWrap:{xs:"wrap",sm:"nowrap"}}}>
-          <Typography sx={{minWidth:"150px"}}>Phone Number</Typography>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexWrap: { xs: "wrap", sm: "nowrap" },
+            }}
+          >
+            <Typography sx={{ minWidth: "150px" }}>Phone Number</Typography>
             <TextField
               fullWidth
               value={phone}
@@ -138,9 +163,17 @@ export default function Dashboard() {
               inputProps={{ maxLength: 11 }}
             />
           </Grid>
-          <Grid item tem xs={12} sx={{display:"flex",alignItems:"center",flexWrap:{xs:"wrap",sm:"nowrap"}}}>
-            <Typography sx={{minWidth:"150px"}}>City</Typography>
-            <FormControl component="fieldset" >
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexWrap: { xs: "wrap", sm: "nowrap" },
+            }}
+          >
+            <Typography sx={{ minWidth: "150px" }}>City</Typography>
+            <FormControl component="fieldset">
               <RadioGroup
                 row
                 aria-label="city"
@@ -163,8 +196,18 @@ export default function Dashboard() {
           </Grid>
 
           {/* Dropdown for Max Pictures */}
-          <Grid item xs={12} md={6} lg={4} sx={{display:"flex",alignItems:"center",flexWrap:{xs:"wrap",sm:"nowrap"}}}>
-          <Typography sx={{minWidth:"150px"}}> No of copies</Typography>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            lg={4}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexWrap: { xs: "wrap", sm: "nowrap" },
+            }}
+          >
+            <Typography sx={{ minWidth: "150px" }}> No of copies</Typography>
             <Select
               fullWidth
               value={maxPictures}
@@ -187,8 +230,8 @@ export default function Dashboard() {
           <Grid item xs={12}>
             <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
               {previewUrls.map((url, index) => (
-                <img
-                  key={index}
+                <Image
+                key={index}
                   src={url}
                   alt={`Preview ${index}`}
                   width={100}
@@ -228,9 +271,9 @@ export default function Dashboard() {
               variant="contained"
               color="inherit"
               type="submit"
-              sx={{ width: "100%",minHeight:"60px" }}
+              sx={{ width: "100%", minHeight: "60px" }}
             >
-              {loading?<CircularProgress color="primary"/>:"Add Car"}
+              {loading ? <CircularProgress color="primary" /> : "Add Car"}
             </Button>
           </Grid>
         </Grid>

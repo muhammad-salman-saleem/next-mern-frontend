@@ -36,7 +36,7 @@ export default function Login() {
     setError(null);
 
     try {
-      const response = await axios.post<any>(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URI}/api/v1/users/login`,
         { email, password }
       );
